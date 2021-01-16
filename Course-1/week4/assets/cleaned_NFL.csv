@@ -1,0 +1,33 @@
+City,Population,W,L,Team,W/L Ratio,Avg. Ratio
+Atlanta,5789700,7,9,Falcons,0.4375,0.4375
+Baltimore,2798886,10,6,Ravens,0.625,0.625
+Boston,4794447,11,5,Patriots,0.6875,0.6875
+Buffalo,1132804,6,10,Bills,0.375,0.375
+Charlotte,2474314,7,9,Panthers,0.4375,0.4375
+Chicago,9512999,12,4,Bears,0.75,0.75
+Cincinnati,2165139,6,10,Bengals,0.375,0.375
+Cleveland,2055612,7,8,Browns,0.4666666666666667,0.4666666666666667
+Dallas,7233323,10,6,Cowboys,0.625,0.625
+Denver,2853077,6,10,Broncos,0.375,0.375
+Detroit,4297617,6,10,Lions,0.375,0.375
+Green Bay,318236,6,9,Packers,0.4,0.4
+Houston,6772470,11,5,Texans,0.6875,0.6875
+Indianapolis,2004230,10,6,Colts,0.625,0.625
+Jacksonville,1478212,5,11,Jaguars,0.3125,0.3125
+Kansas City,2104509,12,4,Chiefs,0.75,0.75
+Los Angeles,13310447,13,3,Rams,0.8125,0.78125
+Los Angeles,13310447,12,4,Chargers,0.75,0.78125
+Miami,6066387,7,9,Dolphins,0.4375,0.4375
+Minneapolis,3551036,8,7,Vikings,0.5333333333333333,0.5333333333333333
+Nashville,1865298,9,7,Titans,0.5625,0.5625
+New Orleans,1268883,13,3,Saints,0.8125,0.8125
+New York,20153634,5,11,Giants,0.3125,0.28125
+New York,20153634,4,12,Jets,0.25,0.28125
+Philadelphia,6070500,9,7,Eagles,0.5625,0.5625
+Phoenix,4661537,3,13,Cardinals,0.1875,0.1875
+Pittsburgh,2342299,9,6,Steelers,0.6,0.6
+San Francisco,6657982,4,12,49ers,0.25,0.25
+San Francisco,6657982,4,12,Raiders,0.25,0.25
+Seattle,3798902,10,6,Seahawks,0.625,0.625
+Tampa Bay,3032171,5,11,Buccaneers,0.3125,0.3125
+Washington,6131977,7,9,Redskins,0.4375,0.4375
