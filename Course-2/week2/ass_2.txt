@@ -1,0 +1,88 @@
+import matplotlib.pyplot as plt
+import mplleaflet
+import matplotlib.dates as mdates
+import pandas as pd
+import numpy as np
+pd.options.mode.chained_assignment = None  # default='warn'
+%matplotlib notebook
+
+
+df = pd.read_csv("data/C2A2_data/BinnedCsvs_d400/ce42cf126a5274f0a3aa1ee140ddcf82d5288d4a3ac707fa49f0eb86.csv")
+df.head() 
+
+df1 = df.copy()
+#print(df1.head())
+
+df1 = df1.sort(["ID", "Date"])
+print(df1.head(10))
+
+df1['Year'], df1['Month-Day'] = zip(*df1['Date'].apply(lambda x: (x[:4], x[5:])))
+print(df1.head())
+
+#Removing 02-29
+df1 = df1[df1['Month-Day'] != '02-29']
+#print(df1.head())
+
+#calculate the right value for temperature
+df1['Data_Value'] = df1['Data_Value'].div(10)
+
+tmin  = df1[(df1['Element'] == 'TMIN') & (df1['Year'] != '2015')].groupby('Month-Day').aggregate({'Data_Value':np.min})
+tmin.reset_index().head()          #365 rows
+
+tmax = df1[(df1['Element'] == 'TMAX') & (df1['Year'] != '2015')].groupby('Month-Day').aggregate({'Data_Value':np.max})
+tmax.reset_index().head()
+
+
+#2015
+min_2015 = df1[(df1['Element'] == 'TMIN') & (df1['Year'] == '2015')].groupby('Month-Day').aggregate({'Data_Value':np.min})
+min_2015.reset_index().head()       #365 rows
+
+max_2015 = df1[(df1['Element'] == 'TMAX') & (df1['Year'] == '2015')].groupby('Month-Day').aggregate({'Data_Value':np.max})
+max_2015.reset_index().head()
+
+a = np.where(min_2015['Data_Value'] < tmin['Data_Value'])[0]
+#print(a)
+#print(len(a)) #-49
+
+b = np.where(max_2015['Data_Value'] > tmax['Data_Value'])[0]
+#print(b)
+#print(len(b)) #-33
+
+
+#Ploting
+fig = plt.figure()
+fig.patch.set_facecolor('blue')
+
+#line, scatter
+plt.plot(tmin.values, 'b', linewidth=0.3)
+plt.plot(tmax.values, 'r', linewidth=0.3)
+
+plt.scatter(a, min_2015.iloc[a], s = 10, c = 'blue', label = 'broken low')
+plt.scatter(b, max_2015.iloc[b], s = 10, c = 'red', label = 'broken high')
+
+#print(tmax.values.tolist)
+
+#plt.xlabel('Day of Year')
+plt.ylabel('Temperature in Degree Celsius')
+plt.title('Air Temperature Records, Ann Arbor, Michigan')
+plt.legend(['Min Temp 2005-2014', 'Max Temp 2005-2014', "Min Temp Record broken in 2015", "Max Temp Record broken in 2015"], frameon = False) #loc = "center")
+plt.rcParams['figure.facecolor'] = 'black'
+plt.rcParams['figure.figsize'] = (9, 6)
+
+#Filling the required area
+plt.gca().fill_between(range(len(tmax)),
+                       tmin['Data_Value'], 
+                       tmax['Data_Value'], 
+                       facecolor = "gray",
+                       alpha = 0.1)
+
+#plt.xticks(np.arange(0,335, 30.416), ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"], rotation=40)
+plt.xticks([0,31,59,90,120,151,181,212,243,273,304,334], ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"], rotation=40)
+
+#print(np.arange(365))
+plt.subplots_adjust(bottom=0.25)
+
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+
+plt.show()
